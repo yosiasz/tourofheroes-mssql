@@ -1,0 +1,25 @@
+{
+  "name": "tourofheroes-mssql",
+  "version": "1.0.0",
+  "description": "Tour of Heroes using Microsoft SQL Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yosiasz/tourofheroes-mssql.git"
+  },
+  "keywords": [
+    "tour",
+    "of",
+    "heroes",
+    "mssql"
+  ],
+  "author": "Josiah Solomon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yosiasz/tourofheroes-mssql/issues"
+  },
+  "homepage": "https://github.com/yosiasz/tourofheroes-mssql#readme"
+}
