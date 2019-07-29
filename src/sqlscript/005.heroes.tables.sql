@@ -1,4 +1,4 @@
---heroes database needs to exist on your SQL Server
+--heroes database needs to be created on your SQL Server
 use heroes
 go
 
