@@ -2,20 +2,65 @@ const express = require('express');
 const uuid = require('uuid');
 const router = express.Router();
 const heroes = require('../../heroes');
+const sql = require('mssql')
+const config = require('../../config/mssql')
 
 // Gets All heroes
-router.get('/', (req, res) => res.json(heroes));
+//router.get('/', (req, res) => res.json(heroes));
+router.get('/', (req, res) => {
+
+    for (var key in req.body) {
+      if(req.body[key] === '' ) {
+          req.body[key] = null;
+          }
+    }
+    
+    const pool2 = new sql.ConnectionPool(config, err => {
+      // ... error checks
+      pool2.on('error', err => {
+          console.log('ConnectionPool', err);
+      })
+    
+      pool2.request() //
+      .execute('dbo.heroes_sp', (err, result) => {
+          // ... error checks
+          console.log('ConnectionPool', err);
+          res.send(result.recordsets[0])
+      })
+    })
+
+})
 
 // Get Single heroe
 router.get('/:id', (req, res) => {
-  console.log('getHeroe by id',req.params.id );
-  const found = heroes.some(heroe => heroe.id === parseInt(req.params.id));
-
-  if (found) {
-    res.json(heroes.filter(heroe => heroe.id === parseInt(req.params.id)));
-  } else {
-    res.status(400).json({ msg: `No heroe with the id of ${req.params.id}` });
+  
+  for (var key in req.body) {
+    if(req.body[key] === '' ) {
+        req.body[key] = null;
+        }
   }
+  
+  const pool2 = new sql.ConnectionPool(config, err => {
+    pool2.on('error', err => {
+        console.log('ConnectionPool', err);
+    })
+  
+    pool2.request() 
+    .input('id', sql.Int, req.params.id)
+    .execute('dbo.heroes_sp', (err, result) => {
+        // ... error checks
+        console.log('ConnectionPool', err);
+        res.send(result.recordsets[0])
+    })
+  })
+  /*   
+    const found = heroes.some(heroe => heroe.id === parseInt(req.params.id));
+
+    if (found) {
+      res.json(heroes.filter(heroe => heroe.id === parseInt(req.params.id)));
+    } else {
+      res.status(400).json({ msg: `No heroe with the id of ${req.params.id}` });
+    } */
 });
 
 // Create heroe

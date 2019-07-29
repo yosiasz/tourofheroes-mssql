@@ -18,3 +18,5 @@ select id,
   from dbo.vw_heroes    
   where (@id is null or id = @id)
 go
+
+grant execute on dbo.heroes_sp to heroes;
