@@ -1,0 +1,14 @@
+image: node:8.12.0
+
+stages:
+  - build
+  - test
+  - doc
+  - deploy
+  - trigger
+
+build:
+  stage:build
+  script:
+    - gulp build
+    

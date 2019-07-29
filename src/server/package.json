@@ -1,0 +1,21 @@
+{
+  "name": "tour-of-heroes-api",
+  "version": "1.0.0",
+  "description": "Tour of Heroes api with express.js and MS SQL Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Josiah Solomon",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express.js": "^1.0.0",
+    "mssql": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

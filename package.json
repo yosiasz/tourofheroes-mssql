@@ -1,25 +1,54 @@
 {
-  "name": "tourofheroes-mssql",
+  "name": "tour-of-heroes-mssql",
   "version": "1.0.0",
-  "description": "Tour of Heroes using Microsoft SQL Server",
-  "main": "server.js",
+  "private": true,
+  "description": "Tour of heroes with express.js api with MS SQL Server backend.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "start": "ng serve",
+    "test": "ng test",
+    "build": "ng build --prod",
+    "e2e": "ng e2e",
+    "ng": "ng"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yosiasz/tourofheroes-mssql.git"
-  },
-  "keywords": [
-    "tour",
-    "of",
-    "heroes",
-    "mssql"
-  ],
+  "keywords": [],
   "author": "Josiah Solomon",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yosiasz/tourofheroes-mssql/issues"
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "^8.0.0",
+    "@angular/common": "^8.0.0",
+    "@angular/compiler": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
+    "@angular/platform-browser-dynamic": "^8.0.0",
+    "@angular/router": "^8.0.0",
+    "@angular/upgrade": "^8.0.0",
+    "angular-in-memory-web-api": "github:brandonroberts/in-memory-web-api-bazel#50a34d8",
+    "core-js": "^2.5.4",
+    "rxjs": "^6.5.1",
+    "zone.js": "~0.9.1"
   },
-  "homepage": "https://github.com/yosiasz/tourofheroes-mssql#readme"
+  "devDependencies": {
+    "@angular-devkit/build-angular": "0.800.0",
+    "@angular/cli": "^8.0.0",
+    "@angular/compiler-cli": "^8.0.0",
+    "@angular/platform-server": "^8.0.0",
+    "@types/jasmine": "~2.8.8",
+    "@types/jasminewd2": "^2.0.4",
+    "@types/node": "~8.9.4",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "lodash": "^4.16.2",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.4.3"
+  },
+  "repository": {}
 }
