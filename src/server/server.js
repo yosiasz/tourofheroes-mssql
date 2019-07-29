@@ -4,7 +4,7 @@ const cors = require('cors');
 
 //const exphbs = require('express-handlebars');
 //const logger = require('./middleware/logger');
-const heroes = require('./heroes');
+//const heroes = require('./heroes');
 
 const app = express();
 
@@ -22,12 +22,12 @@ app.use(cors());
 app.options('*', cors(corsOptions));
 
 // Homepage Route
-app.get('/', (req, res) =>
+/* app.get('/', (req, res) =>
   res.render('index', {
     title: 'Member App',
     heroes
   })
-);
+); */
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));

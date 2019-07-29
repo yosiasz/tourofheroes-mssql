@@ -1,12 +1,10 @@
 const express = require('express');
 const uuid = require('uuid');
 const router = express.Router();
-const heroes = require('../../heroes');
 const sql = require('mssql')
 const config = require('../../config/mssql')
 
 // Gets All heroes
-//router.get('/', (req, res) => res.json(heroes));
 router.get('/', (req, res) => {
 
     for (var key in req.body) {
@@ -50,7 +48,8 @@ router.get('/:id', (req, res) => {
     .execute('dbo.heroes_sp', (err, result) => {
         // ... error checks
         console.log('ConnectionPool', err);
-        res.send(result.recordsets[0])
+        //use recordset for single record return none array [].
+        res.send(result.recordset[0])
     })
   })
   /*   
