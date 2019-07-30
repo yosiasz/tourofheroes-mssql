@@ -104,7 +104,7 @@ router.put('/:id', (req, res) => {
     })
  
     var updateheroetvp = new sql.Table('heroType');
-    updateheroetvp.columns.add('id', sql.Int, {nullable: false, primary: true});
+    updateheroetvp.columns.add('id', sql.Int, {nullable: true, primary: true});
     updateheroetvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});    
     updateheroetvp.rows.add(req.params.id,
                             updheroe.name
