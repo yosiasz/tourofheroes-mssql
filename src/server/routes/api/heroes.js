@@ -65,18 +65,29 @@ router.get('/:id', (req, res) => {
 // Create heroe
 router.post('/', (req, res) => {
   const newheroe = {
-    id: uuid.v4(),
-    name: req.body.name,
-    email: req.body.email,
-    status: 'active'
+    name: req.body.name
   };
 
-  if (!newheroe.name || !newheroe.email) {
+  if (!newheroe.name) {
     return res.status(400).json({ msg: 'Please include a name and email' });
   }
-
-  heroes.push(newheroe);
-  res.json(heroes);
+  
+  const pool = new sql.ConnectionPool(config, err => {
+    // ... error checks
+    pool.on('error', err => {
+        console.log('ConnectionPool', err);
+    })
+ 
+    var newheroetvp = new sql.Table('heroesType');
+    newheroetvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});
+    newheroetvp.rows.add(newheroe.name);
+    pool.request() //
+    .input('newheroe', newheroetvp)
+    .execute('dbo.heroes_ip', (err, result) => {
+        // ... error checks
+        console.log('ConnectionPool', err);        
+    })
+  })
   // res.redirect('/');
 });
 
