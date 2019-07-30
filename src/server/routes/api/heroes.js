@@ -77,10 +77,12 @@ router.post('/', (req, res) => {
     pool.on('error', err => {
         console.log('ConnectionPool', err);
     })
- 
-    var newheroetvp = new sql.Table('heroesType');
+
+    var newheroetvp = new sql.Table('heroType');
+    //newheroetvp.columns.add('id', sql.Int, {nullable: false, primary: true});
     newheroetvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});
     newheroetvp.rows.add(newheroe.name);
+
     pool.request() //
     .input('newheroe', newheroetvp)
     .execute('dbo.heroes_ip', (err, result) => {
@@ -92,36 +94,58 @@ router.post('/', (req, res) => {
 });
 
 // Update heroe
-router.put('/:id', (req, res) => {
-  const found = heroes.some(heroe => heroe.id === parseInt(req.params.id));
+router.put('/:id', (req, res) => {  
+  const updheroe = req.body;
 
-  if (found) {
-    const updheroe = req.body;
-    heroes.forEach(heroe => {
-      if (heroe.id === parseInt(req.params.id)) {
-        heroe.name = updheroe.name ? updheroe.name : heroe.name;
-        heroe.email = updheroe.email ? updheroe.email : heroe.email;
-
-        res.json({ msg: 'heroe updated', heroe });
-      }
-    });
-  } else {
-    res.status(400).json({ msg: `No heroe with the id of ${req.params.id}` });
-  }
+  const pool = new sql.ConnectionPool(config, err => {
+    // ... error checks
+    pool.on('error', err => {
+        console.log('ConnectionPool', err);
+    })
+ 
+    var updateheroetvp = new sql.Table('heroType');
+    updateheroetvp.columns.add('id', sql.Int, {nullable: false, primary: true});
+    updateheroetvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});    
+    updateheroetvp.rows.add(req.params.id,
+                            updheroe.name
+                            );
+  
+    pool.request() //
+    .input('herotype', updateheroetvp)
+    .execute('dbo.heroes_up', (err, result) => {
+      if(err){
+        res.status(500).json({ error: err })       
+      } else {
+        res.status(200).json({ 
+          msg: 'heroe updated', updheroe 
+         })       
+      }    
+    })
+  })
 });
 
 // Delete heroe
 router.delete('/:id', (req, res) => {
-  const found = heroes.some(heroe => heroe.id === parseInt(req.params.id));
-
-  if (found) {
-    res.json({
-      msg: 'heroe deleted',
-      heroes: heroes.filter(heroe => heroe.id !== parseInt(req.params.id))
-    });
-  } else {
-    res.status(400).json({ msg: `No heroe with the id of ${req.params.id}` });
-  }
+  const pool = new sql.ConnectionPool(config, err => {
+    // ... error checks
+    pool.on('error', err => {
+        console.log('ConnectionPool', err);
+    })
+ 
+    pool.request() //
+    .input('id', req.params.id)
+    .execute('dbo.heroes_dp', (err, result) => {
+        if(err){
+          res.status(500).json({ error: err })       
+        } else {
+          res.status(200).json({ 
+            msg: 'heroe deleted'
+           })       
+        }
+        
+    })
+  })
+  
 });
 
 module.exports = router;
