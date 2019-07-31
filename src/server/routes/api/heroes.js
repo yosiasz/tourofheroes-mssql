@@ -78,19 +78,21 @@ router.post('/', (req, res) => {
         console.log('ConnectionPool', err);
     })
 
-    var newheroetvp = new sql.Table('heroType');
-    //newheroetvp.columns.add('id', sql.Int, {nullable: false, primary: true});
-    newheroetvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});
-    newheroetvp.rows.add(newheroe.name);
-
+    //var tvp = new sql.Table('heroType');
+    //tvp.columns.add('id', sql.Int, {nullable: true, primary: false});
+    //tvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});
+    
+    //tvp.rows.add(1);
+    //tvp.rows.add(req.body.name);
+ 
+    
     pool.request() //
-    .input('newheroe', newheroetvp)
+    .input('name', req.body.name)
     .execute('dbo.heroes_ip', (err, result) => {
         // ... error checks
         console.log('ConnectionPool', err);        
     })
   })
-  // res.redirect('/');
 });
 
 // Update heroe
