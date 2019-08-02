@@ -10,7 +10,6 @@ import { MessageService } from './message.service';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
-  private cache$: Observable<Array<Hero>>;
   private heroesUrl = 'http://localhost:5000/api/heroes';  // URL to web api
 
   httpOptions = {
@@ -23,24 +22,12 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes (): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
         tap(_ => this.log('fetched heroes')),
         shareReplay(),
         catchError(this.handleError<Hero[]>('getHeroes', []))
-      );       
-
-    /*       
-    if (!this.cache$) {
-        this.cache$= this.http.get<Hero[]>(this.heroesUrl)
-        .pipe(
-          tap(_ => this.log('fetched heroes')),
-          shareReplay(1),
-          catchError(this.handleError<Hero[]>('getHeroes', []))
-        );     
-    }
-    return this.cache$; 
-    */
+      );
   }
 
   /** GET hero by id. Return `undefined` when id not found */

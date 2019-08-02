@@ -22,8 +22,13 @@ router.get('/', (req, res) => {
       pool2.request() //
       .execute('dbo.heroes_sp', (err, result) => {
           // ... error checks
-          console.log('ConnectionPool', err);
-          res.send(result.recordsets[0])
+          if (err){
+            console.log('ConnectionPool', err);
+
+          } else {
+            res.send(result.recordsets[0])
+
+          }
       })
     })
 
@@ -46,20 +51,15 @@ router.get('/:id', (req, res) => {
     pool2.request() 
     .input('id', sql.Int, req.params.id)
     .execute('dbo.heroes_sp', (err, result) => {
-        // ... error checks
+      if (err){
         console.log('ConnectionPool', err);
+
+      } else {
         //use recordset for single record return none array [].
         res.send(result.recordset[0])
+      }
     })
   })
-  /*   
-    const found = heroes.some(heroe => heroe.id === parseInt(req.params.id));
-
-    if (found) {
-      res.json(heroes.filter(heroe => heroe.id === parseInt(req.params.id)));
-    } else {
-      res.status(400).json({ msg: `No heroe with the id of ${req.params.id}` });
-    } */
 });
 
 // Create heroe
@@ -77,14 +77,6 @@ router.post('/', (req, res) => {
     pool.on('error', err => {
         console.log('ConnectionPool', err);
     })
-
-    //var tvp = new sql.Table('heroType');
-    //tvp.columns.add('id', sql.Int, {nullable: true, primary: false});
-    //tvp.columns.add('name', sql.NVarChar(150), {nullable: false, primary: false});
-    
-    //tvp.rows.add(1);
-    //tvp.rows.add(req.body.name);
- 
     
     pool.request() //
     .input('name', req.body.name)
