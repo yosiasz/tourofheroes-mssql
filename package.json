@@ -9,7 +9,8 @@
     "test": "ng test",
     "build": "ng build --prod",
     "e2e": "ng e2e",
-    "ng": "ng"
+    "ng": "ng",
+    "dev": "ng serve --open"
   },
   "keywords": [],
   "author": "Josiah Solomon",

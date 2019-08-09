@@ -13,7 +13,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express.js": "^1.0.0",
-    "mssql": "^5.1.0"
+    "mssql": "^5.1.0",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
